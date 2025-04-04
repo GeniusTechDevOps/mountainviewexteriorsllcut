@@ -1,0 +1,71 @@
+---
+import Menu from "../headerComponents/Menu.tsx";
+import type { RootObject, SectionsHomeAbout } from "../../interfaces/dbData.ts";
+
+let API_URL = import.meta.env.API_URL;
+// Realiza la llamada a la API
+const response = await fetch(`${API_URL}`);
+const data: RootObject = await response.json();
+
+
+---
+
+<header transition:animate="none">
+  <div class="flex flex-col md:mb-[-30px] relative z-50 w-full">
+    <div class="w-full mx-auto py-2.5 bg-primary flex px-2 md:px-16">
+      <div class="w-auto md:w-1/3 text-white flex space-x-2">
+        {
+          data?.dataGeneral.phones.length > 0 && (
+            <a
+              class="flex text-sm items-center font-extralight border-r border-white w-auto pr-2"
+              href={`tel:+1${data.dataGeneral.phones[0].number}`}
+            >
+              <i class="fa-solid fa-phone text-xs" />
+              <span class="ml-2 font-extralight text-sm">Phone</span>
+            </a>
+          )
+        }
+        {
+          data?.dataGeneral.emails.length > 0 && (
+            <a
+              class="flex text-sm items-center font-extralight border-r border-white w-auto pr-2"
+              href={`mailto:${data.dataGeneral.emails[0].email}`}
+            >
+              <i class="fa-solid fa-envelope text-xs" />
+              <span class="ml-2 font-extralight text-sm">Email</span>
+            </a>
+          )
+        }
+      </div>
+      <div class="w-1/3 text-white md:flex justify-center items-center space-x-2 hidden">
+        {
+          data?.dataGeneral?.openingHours.length > 0 && (
+            <div class="flex text-sm items-center font-extralight w-auto">
+              <p>
+                {data.dataGeneral.openingHours[0].days} |{" "}
+                {data.dataGeneral.openingHours[0].hours}
+              </p>
+            </div>
+          )
+        }
+      </div>
+      <div class="w-full md:w-1/3 text-white flex justify-end items-center space-x-4 ">
+        {
+          data.redesSociales.map((redes) => (
+            <a
+              href={redes.link}
+              target="_blank"
+              aria-label={redes.name}
+              class="flex justify-center items-center rounded-full bg-primary text-white"
+            >
+              <i class={`fa-brands fa-${redes.icon}`} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+    <div class=" w-full mx-auto pt-2 bg-white hidden md:flex justify-center items-center px-16 shadow-lg">
+      <Menu data={data} client:load />
+    </div>
+  </div>
+</header>
