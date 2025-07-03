@@ -32,7 +32,7 @@ const ModalPost = () => {
                       <div className="w-full flex justify-center item-center flex-col">
                         <div className="">
                           <img
-                            src="post/post.jpg"
+                            src="post/post.webp"
                             alt="Not Found"
                             loading="lazy"
                             className="w-full object-contain"

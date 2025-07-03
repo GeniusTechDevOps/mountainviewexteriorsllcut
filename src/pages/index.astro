@@ -10,6 +10,7 @@ import Directorios from "../components/home/Directorios";
 import ServicesHome from "../components/home/ServicesHome2";
 import ColorPalette from "../components/home/ColorPalette.astro";
 import BlockAbout from "../components/about/BlockAbout";
+import ModalPost from "../components/home/ModalPost";
 
 let API_URL = import.meta.env.API_URL;
 // Realiza la llamada a la API
@@ -37,6 +38,7 @@ const aboutSection = data?.sectionsHomeAbout.filter(
   keywords={data.services.map((service) => service.title).join(", ")}
 >
   <HeroSection2 data={data} client:load />
+  <ModalPost client:load />
   <HomeSection data={data} homeSection={homeSection} client:load/>
   <HomeSectionTwo data={data} homeSection={homeSection} client:load/>
   <Directorios client:only data={data} />
